@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/loginFragment">
+
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="com.example.maktabhw18_1.ui.home.LoginFragment"
+        android:label="LoginFragment"
+        tools:layout="@layout/fragment_login">
+        <action
+            android:id="@+id/action_loginFragment_to_taskMainFragment"
+            app:destination="@id/taskMainFragment"
+            app:popUpTo="@id/loginFragment"
+            app:popUpToInclusive="true"/>
+        <action
+            android:id="@+id/action_loginFragment_to_registerFragment"
+            app:destination="@id/registerFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/registerFragment"
+        android:name="com.example.maktabhw18_1.ui.home.RegisterFragment"
+        android:label="RegisterFragment"
+        tools:layout="@layout/fragment_register">
+        <action
+            android:id="@+id/action_registerFragment_to_taskMainFragment"
+            app:destination="@id/taskMainFragment"
+            app:popUpTo="@id/loginFragment"
+            app:popUpToInclusive="true"/>
+    </fragment>
+    <fragment
+        android:id="@+id/doingFragment"
+        android:name="com.example.maktabhw18_1.ui.DoingFragment"
+        android:label="DoingFragment"
+        tools:layout="@layout/fragment_doing"/>
+    <fragment
+        android:id="@+id/taskMainFragment"
+        android:name="com.example.maktabhw18_1.ui.TaskMainFragment"
+        android:label="TaskMainFragment"
+        tools:layout="@layout/fragment_main_task">
+        <action
+            android:id="@+id/action_taskMainFragment_to_taskDialog"
+            app:destination="@id/taskDialog" />
+        <argument
+            android:name="userName"
+            app:argType="string" />
+    </fragment>
+    <fragment
+        android:id="@+id/todoFragment"
+        android:name="com.example.maktabhw18_1.ui.TodoFragment"
+        android:label="TodoFragment"
+        tools:layout="@layout/fragment_todo">
+        <argument
+            android:name="userId"
+            app:argType="integer" />
+    </fragment>
+    <fragment
+        android:id="@+id/doneFragment"
+        android:name="com.example.maktabhw18_1.ui.DoneFragment"
+        android:label="DoneFragment"
+        tools:layout="@layout/fragment_done"/>
+    <dialog
+        android:id="@+id/datePickerFragment"
+        android:name="com.example.maktabhw18_1.dialog.DatePickerFragment"
+        android:label="DatePickerFragment"/>
+    <dialog
+        android:id="@+id/taskDialog"
+        android:name="com.example.maktabhw18_1.dialog.TaskDialog"
+        android:label="TaskDialog"
+        tools:layout="@layout/dialog_task">
+        <action
+            android:id="@+id/action_taskDialog_to_datePickerFragment"
+            app:destination="@id/datePickerFragment" />
+        <argument
+            android:name="state"
+            app:argType="com.example.maktabhw18_1.State" />
+        <argument
+            android:name="userName"
+            app:argType="string" />
+    </dialog>
+</navigation>
