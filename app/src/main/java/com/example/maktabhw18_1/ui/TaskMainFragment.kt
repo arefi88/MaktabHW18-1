@@ -17,7 +17,7 @@ class TaskMainFragment:Fragment() {
     private var _binding:FragmentMainTaskBinding?=null
     private val binding get() = _binding!!
     private lateinit var viewPagerAdapter: ViewPagerAdapter
-     val args:TaskMainFragmentArgs by navArgs()
+     private val args:TaskMainFragmentArgs by navArgs()
     private val labelList:ArrayList<String> = arrayListOf("Todo","Doing","Done")
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -30,7 +30,7 @@ class TaskMainFragment:Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewPagerAdapter=ViewPagerAdapter(this,args.userName)
+        viewPagerAdapter=ViewPagerAdapter(this,args.userName,args.user)
         binding.viewPager.adapter=viewPagerAdapter
         TabLayoutMediator(binding.tabLayout,binding.viewPager){tab,position->
             tab.text=labelList[position]

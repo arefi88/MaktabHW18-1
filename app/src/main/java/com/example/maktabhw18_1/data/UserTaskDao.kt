@@ -24,7 +24,15 @@ interface UserTaskDao {
     @Query("SELECT * FROM user_tbl WHERE id == :id")
     fun getUser(id:Int):Flow<User>
 
-//    @Transaction
-//    @Query("SELECT * FROM user_tbl ")
-//    fun getUserWithTasks():List<UserWithTasks>
+    @Update
+    suspend fun updateUser(user: User)
+
+    @Delete
+    suspend fun deleteUser(user:User)
+
+    @Delete
+    suspend fun deleteTask(task: Task)
+
+    @Update
+    suspend fun updateTask(task: Task)
 }

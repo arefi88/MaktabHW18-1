@@ -13,5 +13,7 @@ class UserTaskRepository @Inject constructor(private val userTaskDao: UserTaskDa
     fun getUsers()=userTaskDao.getUsers()
     fun searchTask(userName:String,str: String)=userTaskDao.searchTask(userName,str)
     fun getUser(id:Int)=userTaskDao.getUser(id)
+    suspend fun updateUser(user: User)=userTaskDao.updateUser(user)
+    suspend fun deleteUser(user: User)=userTaskDao.deleteUser(user)
     //fun getUserWithTasks()=userTaskDao.getUserWithTasks()
 }

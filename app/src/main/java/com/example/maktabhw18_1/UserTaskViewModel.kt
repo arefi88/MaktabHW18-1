@@ -1,7 +1,5 @@
 package com.example.maktabhw18_1
 
-import android.content.Context
-import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -11,15 +9,13 @@ import com.example.maktabhw18_1.data.User
 import com.example.maktabhw18_1.data.UserWithTasks
 import com.example.maktabhw18_1.repository.UserTaskRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
-import dagger.hilt.android.qualifiers.ApplicationContext
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class UserTaskViewModel @Inject constructor(private val userTaskRepository: UserTaskRepository) : ViewModel() {
-   private val _userLiveData = MutableLiveData<List<User>>()
-   val userLiveData: LiveData<List<User>> = _userLiveData
+   private val _userListLiveData = MutableLiveData<List<User>>()
+   val userListLiveData: LiveData<List<User>> = _userListLiveData
 
     private val _taskLiveData = MutableLiveData<List<Task>>()
     val taskLiveData: LiveData<List<Task>> = _taskLiveData
@@ -50,7 +46,7 @@ class UserTaskViewModel @Inject constructor(private val userTaskRepository: User
 
     fun getUsers()=viewModelScope.launch {
         userTaskRepository.getUsers().collect{
-            _userLiveData.value=it
+            _userListLiveData.value=it
         }
     }
     fun getTasks(userName: String,state: State)=viewModelScope.launch {
@@ -72,6 +68,14 @@ class UserTaskViewModel @Inject constructor(private val userTaskRepository: User
     fun getUserWithTasks()=viewModelScope.launch {
            // _tasksWithUserName.value=userTaskRepository.getUserWithTasks()
     }
+    fun updateUser(user: User)=viewModelScope.launch {
+        userTaskRepository.updateUser(user)
+    }
+
+    fun deleteUser(user:User)=viewModelScope.launch {
+        userTaskRepository.deleteUser(user)
+
+    }
 
     fun loginUser(userName:String,password:String){
 
@@ -80,6 +84,7 @@ class UserTaskViewModel @Inject constructor(private val userTaskRepository: User
                users.forEach { user->
                    if (user.userName == userName && user.password==password){
                        _existUserLiveData.postValue(true)
+                       _getUserLiveData.value=user
                        return@collect
 
                    }else{

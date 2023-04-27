@@ -18,6 +18,9 @@
         <action
             android:id="@+id/action_loginFragment_to_registerFragment"
             app:destination="@id/registerFragment" />
+        <action
+            android:id="@+id/action_loginFragment_to_usersFragment"
+            app:destination="@id/usersFragment" />
     </fragment>
     <fragment
         android:id="@+id/registerFragment"
@@ -29,6 +32,9 @@
             app:destination="@id/taskMainFragment"
             app:popUpTo="@id/loginFragment"
             app:popUpToInclusive="true"/>
+        <action
+            android:id="@+id/action_registerFragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
     </fragment>
     <fragment
         android:id="@+id/doingFragment"
@@ -46,6 +52,9 @@
         <argument
             android:name="userName"
             app:argType="string" />
+        <argument
+            android:name="user"
+            app:argType="com.example.maktabhw18_1.data.User" />
     </fragment>
     <fragment
         android:id="@+id/todoFragment"
@@ -79,5 +88,26 @@
         <argument
             android:name="userName"
             app:argType="string" />
+        <argument
+            android:name="user"
+            app:argType="com.example.maktabhw18_1.data.User" />
     </dialog>
+    <dialog
+        android:id="@+id/deleteUserDialog"
+        android:name="com.example.maktabhw18_1.dialog.DeleteUserDialog"
+        android:label="DeleteUserDialog"
+        tools:layout="@layout/dialog_user_delete">
+        <argument
+            android:name="user"
+            app:argType="com.example.maktabhw18_1.data.User" />
+    </dialog>
+    <fragment
+        android:id="@+id/usersFragment"
+        android:name="com.example.maktabhw18_1.UsersFragment"
+        android:label="UsersFragment"
+        tools:layout="@layout/fragment_users">
+        <action
+            android:id="@+id/action_usersFragment_to_deleteUserDialog"
+            app:destination="@id/deleteUserDialog"/>
+    </fragment>
 </navigation>

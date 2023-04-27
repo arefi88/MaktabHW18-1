@@ -9,7 +9,12 @@ data class User(
    var id:Int=0,
    var userName:String,
    var email:String,
-   var password:String
-){
-    var numberTasks:Int=0
+   var password:String,
+    var numberTasks:Int=0,
+  var registerDate:String=""
+):java.io.Serializable{
+
+
+
+
 }

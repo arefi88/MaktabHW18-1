@@ -13,12 +13,13 @@ import com.example.maktabhw18_1.State
 import com.example.maktabhw18_1.UserTaskViewModel
 import com.example.maktabhw18_1.adapter.TaskAdapter
 import com.example.maktabhw18_1.data.Task
+import com.example.maktabhw18_1.data.User
 import com.example.maktabhw18_1.databinding.FragmentDoneBinding
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class DoneFragment(private val userName:String) : Fragment() {
+class DoneFragment(private val userName:String,private val user:User) : Fragment() {
     private var _binding:FragmentDoneBinding?=null
     private val binding get() = _binding!!
     @Inject
@@ -44,7 +45,7 @@ class DoneFragment(private val userName:String) : Fragment() {
 
         }
         binding.fabDone.setOnClickListener {
-            val action=TaskMainFragmentDirections.actionTaskMainFragmentToTaskDialog(State.DONE,userName)
+            val action=TaskMainFragmentDirections.actionTaskMainFragmentToTaskDialog(State.DONE,userName,user)
             view.findNavController().navigate(action)
 
         }

@@ -16,6 +16,7 @@ import com.example.maktabhw18_1.UserTaskViewModel
 import com.example.maktabhw18_1.adapter.TaskAdapter
 import com.example.maktabhw18_1.adapter.TasksAdapter
 import com.example.maktabhw18_1.data.Task
+import com.example.maktabhw18_1.data.User
 import com.example.maktabhw18_1.databinding.FragmentTodoBinding
 import com.example.maktabhw18_1.dialog.TaskDialog
 import com.example.maktabhw18_1.dialog.TaskDialogArgs
@@ -23,7 +24,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class TodoFragment(private val userName:String) : Fragment() {
+class TodoFragment(private val userName:String,private val user:User) : Fragment() {
     @Inject
     lateinit var task: Task
     lateinit var taskAdapter: TaskAdapter
@@ -69,7 +70,7 @@ class TodoFragment(private val userName:String) : Fragment() {
 
 
         binding.fabTodo.setOnClickListener {
-            val action=TaskMainFragmentDirections.actionTaskMainFragmentToTaskDialog(State.TODO,userName)
+            val action=TaskMainFragmentDirections.actionTaskMainFragmentToTaskDialog(State.TODO,userName,user)
             view.findNavController().navigate(action)
 
         }

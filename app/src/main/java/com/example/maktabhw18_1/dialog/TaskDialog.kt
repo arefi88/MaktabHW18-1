@@ -19,6 +19,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
 import com.example.maktabhw18_1.UserTaskViewModel
 import com.example.maktabhw18_1.data.Task
+import com.example.maktabhw18_1.data.User
 import com.example.maktabhw18_1.databinding.DialogTaskBinding
 import com.example.maktabhw18_1.databinding.LayoutDialogBinding
 import com.google.android.material.timepicker.MaterialTimePicker
@@ -84,6 +85,8 @@ class TaskDialog :DialogFragment() {
             task.state=args.state
             task.userName=args.userName
             task.img=image
+            args.user.numberTasks++
+            viewModel.updateUser(args.user)
             viewModel.saveTask(task)
             dismiss()
         }

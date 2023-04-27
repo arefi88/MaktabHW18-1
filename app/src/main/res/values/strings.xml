@@ -16,4 +16,7 @@
     <string name="cancel">cancel</string>
     <string name="add_your_contact_information">Add Your task information</string>
     <string name="camera">Camera</string>
+    <string name="do_you_want_to_delete">Do you want to delete?</string>
+    <string name="ok">OK</string>
+    <string name="date2">Date</string>
 </resources>
