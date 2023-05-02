@@ -34,7 +34,9 @@
             app:popUpToInclusive="true"/>
         <action
             android:id="@+id/action_registerFragment_to_loginFragment"
-            app:destination="@id/loginFragment" />
+            app:destination="@id/loginFragment"
+            app:popUpTo="@id/loginFragment"
+            app:popUpToInclusive="true"/>
     </fragment>
     <fragment
         android:id="@+id/doingFragment"
@@ -109,5 +111,17 @@
         <action
             android:id="@+id/action_usersFragment_to_deleteUserDialog"
             app:destination="@id/deleteUserDialog"/>
+        <action
+            android:id="@+id/action_usersFragment_to_userTasks"
+            app:destination="@id/userTasks" />
+    </fragment>
+    <fragment
+        android:id="@+id/userTasks"
+        android:name="com.example.maktabhw18_1.UserTasks"
+        android:label="UserTasks"
+        tools:layout="@layout/fragment_user_tasks">
+        <argument
+            android:name="user"
+            app:argType="com.example.maktabhw18_1.data.User" />
     </fragment>
 </navigation>

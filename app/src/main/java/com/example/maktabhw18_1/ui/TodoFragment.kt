@@ -1,5 +1,6 @@
 package com.example.maktabhw18_1.ui
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -8,18 +9,13 @@ import android.widget.SearchView.OnQueryTextListener
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
-import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.maktabhw18_1.R
 import com.example.maktabhw18_1.State
 import com.example.maktabhw18_1.UserTaskViewModel
-import com.example.maktabhw18_1.adapter.TaskAdapter
-import com.example.maktabhw18_1.adapter.TasksAdapter
+import com.example.maktabhw18_1.adapter.UserTasksAdapter
 import com.example.maktabhw18_1.data.Task
 import com.example.maktabhw18_1.data.User
 import com.example.maktabhw18_1.databinding.FragmentTodoBinding
-import com.example.maktabhw18_1.dialog.TaskDialog
-import com.example.maktabhw18_1.dialog.TaskDialogArgs
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -27,7 +23,7 @@ import javax.inject.Inject
 class TodoFragment(private val userName:String,private val user:User) : Fragment() {
     @Inject
     lateinit var task: Task
-    lateinit var taskAdapter: TaskAdapter
+    lateinit var taskAdapter: UserTasksAdapter
     private var _binding:FragmentTodoBinding?=null
     private val viewModel:UserTaskViewModel by viewModels()
     private val binding get() = _binding!!
@@ -36,14 +32,14 @@ class TodoFragment(private val userName:String,private val user:User) : Fragment
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding=FragmentTodoBinding.inflate(inflater,container,false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        taskAdapter=TaskAdapter(::onItemClicked)
+        taskAdapter=UserTasksAdapter(::onItemClicked,::onItemDeleteClicked)
 
         viewModel.getTasks(userName,State.TODO)
         viewModel.taskLiveData.observe(viewLifecycleOwner){tasks->
@@ -81,7 +77,19 @@ class TodoFragment(private val userName:String,private val user:User) : Fragment
     }
 
     private fun onItemClicked(task: Task){
+        val sendIntent: Intent = Intent().apply {
+            action = Intent.ACTION_SEND
+            putExtra(Intent.EXTRA_TEXT, task.title)
+            putExtra(Intent.EXTRA_TEXT, task.description)
+            putExtra(Intent.EXTRA_TEXT, task.date)
+            putExtra(Intent.EXTRA_TEXT, task.time)
+            type = "text/plain"
+        }
+        startActivity(sendIntent)
 
+    }
+    private fun onItemDeleteClicked(task: Task){
+        viewModel.deleteTask(task)
     }
 
     override fun onDestroyView() {

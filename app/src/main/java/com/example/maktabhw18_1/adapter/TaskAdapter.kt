@@ -10,10 +10,8 @@ import coil.transform.CircleCropTransformation
 import com.example.maktabhw18_1.data.Task
 import com.example.maktabhw18_1.data.UserWithTasks
 import com.example.maktabhw18_1.databinding.ItemTaskBinding
-import dagger.hilt.android.qualifiers.ApplicationContext
-import javax.inject.Inject
 
-class TaskAdapter ( private val onItemClicked:(Task)->Unit) : RecyclerView.Adapter<TaskAdapter.ViewHolder>() {
+class TaskAdapter ( private val onItemClicked:(Task)->Unit,private val onItemDeleteClicked:(Task)->Unit) : RecyclerView.Adapter<TaskAdapter.ViewHolder>() {
     private lateinit var binding:ItemTaskBinding
     inner class ViewHolder: RecyclerView.ViewHolder(binding.root){
         fun setData(task: Task){
@@ -27,10 +25,12 @@ class TaskAdapter ( private val onItemClicked:(Task)->Unit) : RecyclerView.Adapt
                 transformations(CircleCropTransformation())
             }
 
-
+            binding.btnShare.setOnClickListener {
+                onItemClicked(task)
+            }
 
             binding.root.setOnClickListener {
-                onItemClicked(task)
+                onItemDeleteClicked(task)
 
             }
         }

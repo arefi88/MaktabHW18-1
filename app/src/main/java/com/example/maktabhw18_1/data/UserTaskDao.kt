@@ -18,6 +18,9 @@ interface UserTaskDao {
     @Query("SELECT * FROM task_tbl WHERE userName == :userName AND state == :state")
     fun getTasks(userName:String,state:State):Flow<List<Task>>
 
+    @Query("SELECT * FROM task_tbl WHERE userName == :userName")
+    fun getTasksForAdmin(userName:String):Flow<List<Task>>
+
     @Query("SELECT * FROM task_tbl WHERE userName == :userName AND description LIKE '%' || :str || '%' ")
     fun searchTask(userName:String,str: String):Flow<List<Task>>
 
@@ -35,4 +38,7 @@ interface UserTaskDao {
 
     @Update
     suspend fun updateTask(task: Task)
+
+    @Query("DELETE FROM task_tbl WHERE userName == :userName")
+    suspend fun deleteTasksUser(userName:String)
 }

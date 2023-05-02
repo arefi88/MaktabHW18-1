@@ -21,7 +21,7 @@ class DeleteUserDialog :DialogFragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding=DialogUserDeleteBinding.inflate(inflater,container,false)
         return binding.root
     }
@@ -30,6 +30,7 @@ class DeleteUserDialog :DialogFragment() {
         super.onViewCreated(view, savedInstanceState)
         binding.btnDelete.setOnClickListener {
             viewModel.deleteUser(args.user)
+            viewModel.deleteTasksUser(args.user.userName)
             dismiss()
         }
         binding.btnCancel.setOnClickListener {

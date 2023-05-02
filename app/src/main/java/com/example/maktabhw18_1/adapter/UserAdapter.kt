@@ -13,7 +13,7 @@ import com.example.maktabhw18_1.data.UserWithTasks
 import com.example.maktabhw18_1.databinding.ItemTaskBinding
 import com.example.maktabhw18_1.databinding.ItemUserBinding
 
-class UserAdapter ( private val onItemClicked:(User)->Unit) : RecyclerView.Adapter<UserAdapter.ViewHolder>() {
+class UserAdapter ( private val onItemDeleteClicked:(User)->Unit,private val onItemClicked:(User)->Unit) : RecyclerView.Adapter<UserAdapter.ViewHolder>() {
     private lateinit var binding: ItemUserBinding
     inner class ViewHolder: RecyclerView.ViewHolder(binding.root){
         fun setData(user: User){
@@ -22,6 +22,9 @@ class UserAdapter ( private val onItemClicked:(User)->Unit) : RecyclerView.Adapt
             binding.txtUsername.text=user.userName
             binding.root.setOnClickListener {
                 onItemClicked(user)
+            }
+            binding.btnDeleteTask.setOnClickListener {
+                onItemDeleteClicked(user)
             }
         }
 

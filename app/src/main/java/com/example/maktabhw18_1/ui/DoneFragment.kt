@@ -1,5 +1,6 @@
 package com.example.maktabhw18_1.ui
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -11,7 +12,7 @@ import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.maktabhw18_1.State
 import com.example.maktabhw18_1.UserTaskViewModel
-import com.example.maktabhw18_1.adapter.TaskAdapter
+import com.example.maktabhw18_1.adapter.UserTasksAdapter
 import com.example.maktabhw18_1.data.Task
 import com.example.maktabhw18_1.data.User
 import com.example.maktabhw18_1.databinding.FragmentDoneBinding
@@ -24,7 +25,7 @@ class DoneFragment(private val userName:String,private val user:User) : Fragment
     private val binding get() = _binding!!
     @Inject
     lateinit var task: Task
-    lateinit var taskAdapter: TaskAdapter
+    lateinit var taskAdapter: UserTasksAdapter
     private val viewModel: UserTaskViewModel by viewModels()
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -37,7 +38,7 @@ class DoneFragment(private val userName:String,private val user:User) : Fragment
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        taskAdapter=TaskAdapter(::onItemClicked)
+        taskAdapter=UserTasksAdapter(::onItemClicked,::onItemDeleteClicked)
 
         viewModel.getTasks(userName,State.DONE)
         viewModel.taskLiveData.observe(viewLifecycleOwner){tasks->
@@ -73,6 +74,17 @@ class DoneFragment(private val userName:String,private val user:User) : Fragment
     }
 
     private fun onItemClicked(task: Task){
+        val sendIntent: Intent = Intent().apply {
+            action = Intent.ACTION_SEND
+            putExtra(Intent.EXTRA_TEXT, task.title)
+            putExtra(Intent.EXTRA_TEXT, task.description)
+            putExtra(Intent.EXTRA_TEXT, task.date)
+            putExtra(Intent.EXTRA_TEXT, task.time)
+            type = "text/plain"
+        }
+        startActivity(sendIntent)
+    }
+    private fun onItemDeleteClicked(task: Task){
 
     }
 

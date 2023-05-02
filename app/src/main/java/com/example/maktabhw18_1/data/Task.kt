@@ -1,6 +1,7 @@
 package com.example.maktabhw18_1.data
 
 import android.graphics.Bitmap
+import android.os.Parcelable
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.example.maktabhw18_1.State

@@ -6,10 +6,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.maktabhw18_1.adapter.TaskAdapter
 import com.example.maktabhw18_1.adapter.UserAdapter
 import com.example.maktabhw18_1.data.User
 import com.example.maktabhw18_1.databinding.FragmentUsersBinding
@@ -32,7 +30,7 @@ class UsersFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        userAdapter=UserAdapter(::onItemClicked)
+        userAdapter=UserAdapter(::onItemDeleteClicked,::onItemClicked)
         viewModel.getUsers()
         viewModel.userListLiveData.observe(viewLifecycleOwner){users->
             userAdapter.differ.submitList(users.toList())
@@ -44,6 +42,10 @@ class UsersFragment : Fragment() {
     }
 
     private fun onItemClicked(user: User){
+       val action=UsersFragmentDirections.actionUsersFragmentToUserTasks(user)
+        findNavController().navigate(action)
+    }
+    private fun onItemDeleteClicked(user: User){
         val action=UsersFragmentDirections.actionUsersFragmentToDeleteUserDialog(user)
         findNavController().navigate(action)
     }

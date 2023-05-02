@@ -38,6 +38,10 @@ class UserTaskViewModel @Inject constructor(private val userTaskRepository: User
 
     }
 
+    fun deleteTask(task: Task)=viewModelScope.launch {
+        userTaskRepository.deleteTask(task)
+    }
+
 
 
     fun saveTask(task: Task)=viewModelScope.launch {
@@ -75,6 +79,16 @@ class UserTaskViewModel @Inject constructor(private val userTaskRepository: User
     fun deleteUser(user:User)=viewModelScope.launch {
         userTaskRepository.deleteUser(user)
 
+    }
+
+    fun getTasksForAdmin(userName:String)=viewModelScope.launch {
+        userTaskRepository.getTasksForAdmin(userName).collect{
+            _taskLiveData.value=it
+        }
+    }
+
+    fun deleteTasksUser(userName: String)=viewModelScope.launch {
+        userTaskRepository.deleteTasksUser(userName)
     }
 
     fun loginUser(userName:String,password:String){
